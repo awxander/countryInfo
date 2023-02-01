@@ -5,18 +5,29 @@ import retrofit2.http.Path
 
 interface CountryInfoApi {
 
-    @GET("/v2/all")
+    companion object{
+        const val RESPONSE_FILTER = "?fields=" +
+                "name," +
+                "capital," +
+//                "currencies," +
+                "region," +
+                "continent" +
+                "population"
+
+    }
+
+    @GET("/all$RESPONSE_FILTER")
     suspend fun getAll(): List<CountryInfo>
 
-    @GET("/v2/name/{name}")
+    @GET("/name/{name}$RESPONSE_FILTER")
     suspend fun getByName(@Path("name") countryName: String): CountryInfo
 
-    @GET("/v2/currency/{currency}")
+    @GET("/currency/{currency}$RESPONSE_FILTER")
     suspend fun getByCurrencyName(@Path("currency") currencyName: String): CountryInfo
 
-    @GET("/v2/lang/{lang}")
+    @GET("/lang/{lang}$RESPONSE_FILTER")
     suspend fun getByLanguage(@Path("lang") language: String): CountryInfo
 
-    @GET("/2/capital/{capital}")
+    @GET("/capital/{capital}$RESPONSE_FILTER")
     suspend fun getByCapital(@Path("capital") capital: String): CountryInfo
 }
