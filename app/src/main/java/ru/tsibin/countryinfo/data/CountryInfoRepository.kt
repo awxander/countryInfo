@@ -6,7 +6,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-class CountryRepository {
+class CountryInfoRepository {
 
     companion object{
         const val BASE_URL = "https://restcountries.com/"
@@ -19,7 +19,9 @@ class CountryRepository {
     private val gson = GsonBuilder()
         .create()
 
-
+    private val countryInfoApi by lazy{
+        retrofit.create(CountryInfoApi::class.java)
+    }
 
     private val retrofit = Retrofit.Builder()
         .client(provideOkHttpClient())
@@ -35,7 +37,19 @@ class CountryRepository {
             .readTimeout(READ_TIMEOUT_SECONDS, TimeUnit.SECONDS)
             .build()
 
-    private val countryInfoApi by lazy{
-        retrofit.create(CountryInfoApi::class.java)
-    }
+    suspend fun getAll(): List<CountryInfo> =
+        countryInfoApi.getAll()
+
+    suspend fun getByName(countryName: String): CountryInfo =
+        countryInfoApi.getByName(countryName)
+
+    suspend fun getByCurrencyName(currencyName: String): CountryInfo =
+        countryInfoApi.getByCurrencyName(currencyName)
+
+    suspend fun getByLanguage(language: String): CountryInfo =
+        countryInfoApi.getByLanguage(language)
+
+    suspend fun getByCapital(capital: String): CountryInfo =
+        countryInfoApi.getByCapital(capital)
+
 }
