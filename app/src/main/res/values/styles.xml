@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="list_text" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/bright_pink</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/default_text_size</item>
+        <item name="android:layout_margin">10dp</item>
+    </style>
+</resources>

@@ -2,11 +2,12 @@ package ru.tsibin.countryinfo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.lifecycleScope
+import com.example.countriesinfo.R
 import com.example.countriesinfo.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import ru.tsibin.countryinfo.data.CountryInfoRepository
-import java.util.*
+import ru.tsibin.countryinfo.fragments.MainFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,27 +18,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        setButtonsListeners()
+        loadMainFragment()
     }
 
-
-    private fun setButtonsListeners() {
-        binding.apply {
-            button.setOnClickListener {
-                runBlocking {
-                    launch {
-                        val countryInfo = getCountryInfo()
-                        textView.text = countryInfo.toString()
-                    }
-                }
-            }
-        }
+    private fun loadMainFragment(){
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentHolder, MainFragment.newInstance())
+            .commit()
     }
-
-
-    private suspend fun getCountryInfo() =
-        countryInfoRepository.getByName(binding.editText.text.toString())
-
 
 }
