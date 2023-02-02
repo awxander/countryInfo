@@ -12,7 +12,7 @@ class SearchFragment : Fragment() {
 
     private lateinit var binding : FragmentSearchBinding
 
-    private val args: SearchFragmentArgs by navArgs()
+//    private val args: SearchFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -33,7 +33,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/countryName"
                 style="@style/mainFragment_text_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/capital"
                 style="@style/mainFragment_text_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

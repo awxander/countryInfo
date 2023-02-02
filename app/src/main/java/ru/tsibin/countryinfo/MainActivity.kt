@@ -16,8 +16,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        makeBackgroundTransparent()
     }
 
-    
+    private fun makeBackgroundTransparent() {
+        binding.root.background.alpha = 120
+    }
+
+
 
 }
