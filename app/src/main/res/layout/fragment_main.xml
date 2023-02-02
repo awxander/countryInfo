@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
     tools:context="ru.tsibin.countryinfo.fragments.MainFragment">
 
     <LinearLayout
@@ -11,7 +10,7 @@
         android:orientation="vertical">
 
         <TextView
-            style="@style/list_text"
+            style="@style/mainFragment_text_style"
             android:id="@+id/textTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -23,7 +22,7 @@
             android:layout_height="100dp" />
 
         <TextView
-            style="@style/list_text"
+            style="@style/mainFragment_text_style"
             android:id="@+id/tvByName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,14 +30,14 @@
             />
 
         <TextView
-            style="@style/list_text"
+            style="@style/mainFragment_text_style"
             android:id="@+id/tvByCapital"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/get_by_capital" />
 
         <TextView
-            style="@style/list_text"
+            style="@style/mainFragment_text_style"
             android:id="@+id/tvByCurrency"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

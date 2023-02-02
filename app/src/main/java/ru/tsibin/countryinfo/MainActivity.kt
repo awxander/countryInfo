@@ -2,10 +2,8 @@ package ru.tsibin.countryinfo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.lifecycleScope
 import com.example.countriesinfo.R
 import com.example.countriesinfo.databinding.ActivityMainBinding
-import kotlinx.coroutines.launch
 import ru.tsibin.countryinfo.data.CountryInfoRepository
 import ru.tsibin.countryinfo.fragments.MainFragment
 
