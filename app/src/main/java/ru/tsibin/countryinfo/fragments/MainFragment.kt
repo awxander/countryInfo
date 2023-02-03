@@ -5,41 +5,46 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.countriesinfo.R
 import com.example.countriesinfo.databinding.FragmentMainBinding
 import ru.tsibin.countryinfo.mainActivity
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(R.layout.fragment_main) {
 
-    private lateinit var binding : FragmentMainBinding
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    private val tvByName get() = requireView().findViewById<TextView>(R.id.tvByName)
+    private val tvByCapital get() = requireView().findViewById<TextView>(R.id.tvByCapital)
+    private val tvByCurrency get() = requireView().findViewById<TextView>(R.id.tvByCurrency)
+    private val navController get() = findNavController()
 
-        binding = FragmentMainBinding.inflate(inflater)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setListeners()
-        return binding.root
     }
 
-    private fun setListeners(){
-        binding.apply {
-            tvByName.setOnClickListener {
-                mainActivity.startSearch(SearchType.BY_NAME)
-            }
+    private fun setListeners() {
+        tvByName.setOnClickListener {
+            val action =
+                MainFragmentDirections.actionMainFragmentToSearchFragment(SearchType.BY_NAME)
+            navController.navigate(action)
+        }
 
-            tvByCurrency.setOnClickListener {
-                mainActivity.startSearch(SearchType.BY_CURRENCY)
-            }
+        tvByCapital.setOnClickListener {
+            val action =
+                MainFragmentDirections.actionMainFragmentToSearchFragment(SearchType.BY_CAPITAL)
+            navController.navigate(action)
+        }
 
-            tvByCapital.setOnClickListener {
-                mainActivity.startSearch(SearchType.BY_CAPITAL)
-            }
+        tvByCurrency.setOnClickListener {
+            val action =
+                MainFragmentDirections.actionMainFragmentToSearchFragment(SearchType.BY_CURRENCY)
+            navController.navigate(action)
         }
     }
-
 
 
     companion object {

@@ -7,30 +7,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.navigation.fragment.navArgs
+import com.example.countriesinfo.R
 import com.example.countriesinfo.databinding.FragmentSearchBinding
 import ru.tsibin.countryinfo.mainActivity
 
-class SearchFragment : Fragment() {
+class SearchFragment : Fragment(R.layout.fragment_search) {
 
-    private lateinit var binding : FragmentSearchBinding
-
-    private val args: SearchFragmentArgs by navArgs()
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        binding = FragmentSearchBinding.inflate(inflater)
+    //    private val args: SearchFragmentArgs by navArgs()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setBackButton()
-        return binding.root
     }
 
-    private fun setBackButton(){
-        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
-            mainActivity.goBack()
-        }
-        callback.handleOnBackPressed()
+    private fun setBackButton() {
+//        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
+//            mainActivity.goBack()
+//        }
+//        callback.handleOnBackPressed()
     }
 
     companion object {

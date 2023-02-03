@@ -27,6 +27,7 @@
         tools:layout="@layout/fragment_search">
         <argument
             android:name="searchType"
+            android:defaultValue="BY_NAME"
             app:argType="ru.tsibin.countryinfo.fragments.SearchType" />
         <action
             android:id="@+id/action_searchFragment_to_mainFragment"
