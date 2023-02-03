@@ -5,14 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.navigation.fragment.navArgs
 import com.example.countriesinfo.databinding.FragmentSearchBinding
+import ru.tsibin.countryinfo.mainActivity
 
 class SearchFragment : Fragment() {
 
     private lateinit var binding : FragmentSearchBinding
 
-//    private val args: SearchFragmentArgs by navArgs()
+    private val args: SearchFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -20,7 +22,15 @@ class SearchFragment : Fragment() {
     ): View? {
 
         binding = FragmentSearchBinding.inflate(inflater)
+        setBackButton()
         return binding.root
+    }
+
+    private fun setBackButton(){
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
+            mainActivity.goBack()
+        }
+        callback.handleOnBackPressed()
     }
 
     companion object {

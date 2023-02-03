@@ -26,11 +26,10 @@
         android:label="SearchFragment"
         tools:layout="@layout/fragment_search">
         <argument
-            android:name="loanId"
-            android:defaultValue="0L"
-            app:argType="long" />
+            android:name="searchType"
+            app:argType="ru.tsibin.countryinfo.fragments.SearchType" />
         <action
-            android:id="@+id/action_mainFragment_to_searchFragment"
+            android:id="@+id/action_searchFragment_to_mainFragment"
             app:destination="@id/mainFragment"
             app:popUpToInclusive="true"
             app:popUpTo="@id/mainFragment"/>
