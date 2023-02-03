@@ -6,14 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ScrollView
 import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.navigation.fragment.navArgs
 import com.example.countriesinfo.R
 import com.example.countriesinfo.databinding.FragmentSearchBinding
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import ru.tsibin.countryinfo.data.CountryInfo
 import ru.tsibin.countryinfo.data.CountryInfoRepository
 import ru.tsibin.countryinfo.mainActivity
@@ -26,6 +25,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private val countryName get() = requireView().findViewById<TextView>(R.id.countryName)
     private val capital get() = requireView().findViewById<TextView>(R.id.capital)
     private val region get() = requireView().findViewById<TextView>(R.id.region)
+    private val scrollView get() = requireView().findViewById<ScrollView>(R.id.scrollView)
     private val continent get() = requireView().findViewById<TextView>(R.id.continent)
     private val population get() = requireView().findViewById<TextView>(R.id.population)
     private val searchButton get() = requireView().findViewById<TextView>(R.id.searchButton)
@@ -39,27 +39,28 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
 
     @OptIn(DelicateCoroutinesApi::class)
-    private fun setSearchListener(){
+    private fun setSearchListener() {
         searchButton.setOnClickListener {
-            GlobalScope.launch {
-               val countryInfo = getInfo()
-                setCountryInfo(countryInfo)
-                showInfo()
+            val countryInfo = GlobalScope.async {
+                getInfo().first()
             }
+            runBlocking {
+                setCountryInfo(countryInfo.await())
+            }
+            showInfo()
         }
     }
 
-    private fun setCountryInfo(countryInfo: CountryInfo){
+    private fun setCountryInfo(countryInfo: CountryInfo) {
         countryName.text = "country: " + countryInfo.name
         capital.text = "capital: " + countryInfo.capital
         region.text = "region: " + countryInfo.region
-        continent.text = "region: " + countryInfo.continent
         population.text = "population: " + countryInfo.population
     }
 
-    private suspend fun getInfo() : CountryInfo{
+    private suspend fun getInfo(): List<CountryInfo> {
         val arg = editSearchInfo.text.toString()
-        return when(args.searchType){
+        return when (args.searchType) {
             SearchType.BY_NAME -> infoRepository.getByName(arg)
             SearchType.BY_CURRENCY -> infoRepository.getByCurrencyName(arg)
             SearchType.BY_CAPITAL -> infoRepository.getByCapital(arg)
@@ -67,12 +68,12 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         }
     }
 
-    private fun showInfo(){
+    private fun showInfo() {
         countryName.visibility = View.VISIBLE
         capital.visibility = View.VISIBLE
         region.visibility = View.VISIBLE
-        continent.visibility = View.VISIBLE
         population.visibility = View.VISIBLE
+
     }
 
     companion object {

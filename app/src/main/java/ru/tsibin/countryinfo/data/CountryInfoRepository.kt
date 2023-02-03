@@ -40,16 +40,16 @@ class CountryInfoRepository {
     suspend fun getAll(): List<CountryInfo> =
         countryInfoApi.getAll()
 
-    suspend fun getByName(countryName: String): CountryInfo =
+    suspend fun getByName(countryName: String): List<CountryInfo> =
         countryInfoApi.getByName(countryName)
 
-    suspend fun getByCurrencyName(currencyName: String): CountryInfo =
+    suspend fun getByCurrencyName(currencyName: String): List<CountryInfo> =
         countryInfoApi.getByCurrencyName(currencyName)
 
-    suspend fun getByLanguage(language: String): CountryInfo =
+    suspend fun getByLanguage(language: String): List<CountryInfo> =
         countryInfoApi.getByLanguage(language)
 
-    suspend fun getByCapital(capital: String): CountryInfo =
+    suspend fun getByCapital(capital: String): List<CountryInfo> =
         countryInfoApi.getByCapital(capital)
 
 }

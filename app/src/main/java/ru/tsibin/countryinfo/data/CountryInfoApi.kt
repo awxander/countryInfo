@@ -11,7 +11,7 @@ interface CountryInfoApi {
                 "capital," +
 //                "currencies," +
                 "region," +
-                "continent" +
+                "continent," +
                 "population"
 
     }
@@ -20,14 +20,14 @@ interface CountryInfoApi {
     suspend fun getAll(): List<CountryInfo>
 
     @GET("name/{name}$RESPONSE_FILTER")
-    suspend fun getByName(@Path("name") countryName: String): CountryInfo
+    suspend fun getByName(@Path("name") countryName: String): List<CountryInfo>
 
     @GET("currency/{currency}$RESPONSE_FILTER")
-    suspend fun getByCurrencyName(@Path("currency") currencyName: String): CountryInfo
+    suspend fun getByCurrencyName(@Path("currency") currencyName: String): List<CountryInfo>
 
     @GET("lang/{lang}$RESPONSE_FILTER")
-    suspend fun getByLanguage(@Path("lang") language: String): CountryInfo
+    suspend fun getByLanguage(@Path("lang") language: String): List<CountryInfo>
 
     @GET("capital/{capital}$RESPONSE_FILTER")
-    suspend fun getByCapital(@Path("capital") capital: String): CountryInfo
+    suspend fun getByCapital(@Path("capital") capital: String): List<CountryInfo>
 }
