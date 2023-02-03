@@ -6,5 +6,5 @@
     2.1) че там с json, чекнуть, почему же он взрывается
 
 3) UI
-    3.1) передать тип поиска с mainFragment в searchFragment
-    3.2) обработать тип поиска в searchFragment
+    3.1) обработать тип поиска в searchFragment
+    3.2) поправить визуал edittext searchFragment

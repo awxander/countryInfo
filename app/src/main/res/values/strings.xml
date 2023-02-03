@@ -6,5 +6,6 @@
     <string name="get_by_name">by name</string>
     <string name="get_by_capital">by capital</string>
     <string name="get_by_currency">by currency</string>
+    <string name="enter_information">enter information</string>
 
 </resources>

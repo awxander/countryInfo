@@ -11,5 +11,9 @@
     <style name="cardView_searchFragment" parent="CardView">
         <item name="cardCornerRadius">10dp</item>
         <item name="android:layout_margin">20dp</item>
+        <item name="android:layout_marginEnd">40dp</item>
+        <item name="android:layout_marginStart">40dp</item>
+        <item name="cardBackgroundColor">@color/half_transparent</item>
+<!--        <item name="android:visibility">gone</item>-->
     </style>
 </resources>
