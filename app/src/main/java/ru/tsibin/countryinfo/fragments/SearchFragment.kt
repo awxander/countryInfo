@@ -1,11 +1,13 @@
 package ru.tsibin.countryinfo.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.activity.addCallback
@@ -26,6 +28,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private val capital get() = requireView().findViewById<TextView>(R.id.capital)
     private val region get() = requireView().findViewById<TextView>(R.id.region)
     private val scrollView get() = requireView().findViewById<ScrollView>(R.id.scrollView)
+    private val linearLayout get() = requireView().findViewById<LinearLayout>(R.id.linearLayout)
     private val continent get() = requireView().findViewById<TextView>(R.id.continent)
     private val population get() = requireView().findViewById<TextView>(R.id.population)
     private val searchButton get() = requireView().findViewById<TextView>(R.id.searchButton)
@@ -35,7 +38,18 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setSearchListener()
+        setEditTextHint()
     }
+
+    private fun setEditTextHint(){
+        editSearchInfo.hint = "enter " + when(args.searchType){
+            SearchType.BY_NAME -> "name"
+            SearchType.BY_CAPITAL -> "capital"
+            SearchType.BY_CURRENCY -> "currency"
+            else -> "information"
+        }
+    }
+
 
 
     @OptIn(DelicateCoroutinesApi::class)
@@ -60,6 +74,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private suspend fun getInfo(): List<CountryInfo> {
         val arg = editSearchInfo.text.toString()
+            .replace("\\s".toRegex(),"")
+            .replace("\n".toRegex(),"")
         return when (args.searchType) {
             SearchType.BY_NAME -> infoRepository.getByName(arg)
             SearchType.BY_CURRENCY -> infoRepository.getByCurrencyName(arg)
