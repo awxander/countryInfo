@@ -1,0 +1,41 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ru.tsibin.countryinfo.fragments.MainFragment"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/mainFragment_text_style"
+            android:id="@+id/textTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/get_country_info"
+            />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+
+        <TextView
+            style="@style/mainFragment_text_style"
+            android:id="@+id/tvByName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/get_by_name"
+            />
+
+        <TextView
+            style="@style/mainFragment_text_style"
+            android:id="@+id/tvByCapital"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/get_by_capital" />
+
+        <TextView
+            style="@style/mainFragment_text_style"
+            android:id="@+id/tvByCurrency"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/get_by_currency" />
+</LinearLayout>
