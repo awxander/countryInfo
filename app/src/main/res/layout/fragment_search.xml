@@ -15,7 +15,6 @@
         android:backgroundTint="@color/half_transparent"
         android:ems="10"
         android:fontFamily="serif-monospace"
-        android:hint="@string/enter_information"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="@dimen/edit_text_size"

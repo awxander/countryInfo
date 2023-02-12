@@ -42,11 +42,11 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
 
     private fun setEditTextHint(){
-        editSearchInfo.hint = "enter " + when(args.searchType){
-            SearchType.BY_NAME -> "name"
-            SearchType.BY_CAPITAL -> "capital"
-            SearchType.BY_CURRENCY -> "currency"
-            else -> "information"
+        editSearchInfo.hint = getString(R.string.enter) + " " + when(args.searchType){
+            SearchType.BY_NAME -> getString(R.string.name)
+            SearchType.BY_CAPITAL -> getString(R.string.capital)
+            SearchType.BY_CURRENCY -> getString(R.string.currency)
+            SearchType.BY_LANGUAGE -> getString(R.string.language)
         }
     }
 

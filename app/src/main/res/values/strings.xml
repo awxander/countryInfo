@@ -1,11 +1,15 @@
 <resources>
     <string name="app_name">CountriesInfo</string>
-    <string name="enter_country_name">enter country name</string>
     <string name="search">search</string>
     <string name="get_country_info">get country info</string>
     <string name="get_by_name">by name</string>
     <string name="get_by_capital">by capital</string>
     <string name="get_by_currency">by currency</string>
-    <string name="enter_information">enter information</string>
+    <string name="get_all">get all</string>
+    <string name="enter">enter</string>
+    <string name="name">name</string>
+    <string name="language">language</string>
+    <string name="capital">capital</string>
+    <string name="currency">currency</string>
 
 </resources>
