@@ -80,7 +80,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             SearchType.BY_NAME -> infoRepository.getByName(arg)
             SearchType.BY_CURRENCY -> infoRepository.getByCurrencyName(arg)
             SearchType.BY_CAPITAL -> infoRepository.getByCapital(arg)
-            else -> infoRepository.getByName(arg)
+            SearchType.BY_LANGUAGE -> infoRepository.getByCapital(arg)
         }
     }
 

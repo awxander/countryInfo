@@ -19,6 +19,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private val tvByName get() = requireView().findViewById<TextView>(R.id.tvByName)
     private val tvByCapital get() = requireView().findViewById<TextView>(R.id.tvByCapital)
     private val tvByCurrency get() = requireView().findViewById<TextView>(R.id.tvByCurrency)
+    private val tvByLanguage get() = requireView().findViewById<TextView>(R.id.tvByLanguage)
+    private val tvGetAll get() = requireView().findViewById<TextView>(R.id.tvGetAll)
     private val navController get() = findNavController()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -26,23 +28,27 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         setListeners()
     }
 
+    private fun navigateToSearchFragment(searchType: SearchType){
+        val action =
+            MainFragmentDirections.actionMainFragmentToSearchFragment(searchType)
+        navController.navigate(action)
+    }
+
     private fun setListeners() {
         tvByName.setOnClickListener {
-            val action =
-                MainFragmentDirections.actionMainFragmentToSearchFragment(SearchType.BY_NAME)
-            navController.navigate(action)
+            navigateToSearchFragment(SearchType.BY_NAME)
         }
 
         tvByCapital.setOnClickListener {
-            val action =
-                MainFragmentDirections.actionMainFragmentToSearchFragment(SearchType.BY_CAPITAL)
-            navController.navigate(action)
+            navigateToSearchFragment(SearchType.BY_CAPITAL)
         }
 
         tvByCurrency.setOnClickListener {
-            val action =
-                MainFragmentDirections.actionMainFragmentToSearchFragment(SearchType.BY_CURRENCY)
-            navController.navigate(action)
+            navigateToSearchFragment(SearchType.BY_CURRENCY)
+        }
+
+        tvByLanguage.setOnClickListener {
+            navigateToSearchFragment(SearchType.BY_LANGUAGE)
         }
     }
 

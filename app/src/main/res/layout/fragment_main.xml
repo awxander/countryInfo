@@ -39,6 +39,14 @@
             android:layout_height="wrap_content"
             android:text="@string/get_by_currency" />
 
+
+        <TextView
+            android:id="@+id/tvByLanguage"
+            style="@style/mainFragment_text_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/by_language" />
+
         <TextView
             android:id="@+id/tvGetAll"
             style="@style/mainFragment_text_style"

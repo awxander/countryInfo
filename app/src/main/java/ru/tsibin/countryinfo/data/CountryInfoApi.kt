@@ -5,8 +5,6 @@ import retrofit2.http.Path
 
 interface CountryInfoApi {
 
-
-
     @GET("all")
     suspend fun getAll(): List<CountryInfo>
 
