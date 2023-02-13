@@ -15,6 +15,14 @@
         <item name="android:textSize">@dimen/default_text_size</item>
         <item name="android:layout_margin">10dp</item>
     </style>
+
+    <style name="error_message" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/red</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_margin">10dp</item>
+    </style>
     
     <style name="cardView_searchFragment" parent="CardView">
         <item name="cardCornerRadius">10dp</item>
@@ -22,6 +30,5 @@
         <item name="android:layout_marginEnd">40dp</item>
         <item name="android:layout_marginStart">40dp</item>
         <item name="cardBackgroundColor">@color/half_transparent</item>
-<!--        <item name="android:visibility">gone</item>-->
     </style>
 </resources>

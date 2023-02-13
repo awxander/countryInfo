@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="bright_pink">#E1CCCC</color>
     <color name="half_transparent">#88FFFFFF</color>
+    <color name="red">#db452e</color>
 </resources>

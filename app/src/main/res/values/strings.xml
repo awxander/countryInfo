@@ -12,5 +12,6 @@
     <string name="capital">capital</string>
     <string name="currency">currency</string>
     <string name="by_language">by language</string>
+    <string name="error">error</string>
 
 </resources>

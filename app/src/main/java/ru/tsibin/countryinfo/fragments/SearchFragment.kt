@@ -15,6 +15,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.countriesinfo.R
 import com.example.countriesinfo.databinding.FragmentSearchBinding
 import kotlinx.coroutines.*
+import retrofit2.HttpException
 import ru.tsibin.countryinfo.data.CountryInfo
 import ru.tsibin.countryinfo.data.CountryInfoRepository
 import ru.tsibin.countryinfo.mainActivity
@@ -29,9 +30,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private val region get() = requireView().findViewById<TextView>(R.id.region)
     private val scrollView get() = requireView().findViewById<ScrollView>(R.id.scrollView)
     private val linearLayout get() = requireView().findViewById<LinearLayout>(R.id.linearLayout)
-    private val continent get() = requireView().findViewById<TextView>(R.id.continent)
     private val population get() = requireView().findViewById<TextView>(R.id.population)
     private val searchButton get() = requireView().findViewById<TextView>(R.id.searchButton)
+    private val tvErrorMsg get() = requireView().findViewById<TextView>(R.id.errorMsg)
 
     private val infoRepository = CountryInfoRepository()
 
@@ -41,8 +42,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         setEditTextHint()
     }
 
-    private fun setEditTextHint(){
-        editSearchInfo.hint = getString(R.string.enter) + " " + when(args.searchType){
+    private fun setEditTextHint() {
+        editSearchInfo.hint = getString(R.string.enter) + " " + when (args.searchType) {
             SearchType.BY_NAME -> getString(R.string.name)
             SearchType.BY_CAPITAL -> getString(R.string.capital)
             SearchType.BY_CURRENCY -> getString(R.string.currency)
@@ -51,18 +52,31 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
 
 
-
     @OptIn(DelicateCoroutinesApi::class)
     private fun setSearchListener() {
         searchButton.setOnClickListener {
-            val countryInfo = GlobalScope.async {
-                getInfo().first()
+            try {
+
+                val countryInfo = GlobalScope.async {
+                    getInfo().first()
+                }
+                runBlocking {
+                    setCountryInfo(countryInfo.await())
+                }
+                showInfo()
+            } catch (e: HttpException) {
+                showErrorMsg(e)
             }
-            runBlocking {
-                setCountryInfo(countryInfo.await())
+            catch (e: IllegalArgumentException){
+                showErrorMsg(e)
             }
-            showInfo()
         }
+    }
+
+    private fun showErrorMsg(e: Exception){
+        val errorMsg = getString(R.string.error) + ": " + e.message
+        tvErrorMsg.visibility = View.VISIBLE
+        tvErrorMsg.text = errorMsg
     }
 
     private fun setCountryInfo(countryInfo: CountryInfo) {
@@ -73,15 +87,24 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
 
     private suspend fun getInfo(): List<CountryInfo> {
-        val arg = editSearchInfo.text.toString()
-            .replace("\\s".toRegex(),"")
-            .replace("\n".toRegex(),"")
+        val arg = handleInput()
         return when (args.searchType) {
             SearchType.BY_NAME -> infoRepository.getByName(arg)
             SearchType.BY_CURRENCY -> infoRepository.getByCurrencyName(arg)
             SearchType.BY_CAPITAL -> infoRepository.getByCapital(arg)
             SearchType.BY_LANGUAGE -> infoRepository.getByCapital(arg)
         }
+    }
+
+    private fun handleInput(): String {
+        val res = editSearchInfo.text.toString()
+            .replace("\\s".toRegex(), "")
+            .replace("\n".toRegex(), "")
+
+        if (res == "") {
+            throw IllegalArgumentException("wrong input, try again")
+        }
+        return res
     }
 
     private fun showInfo() {
