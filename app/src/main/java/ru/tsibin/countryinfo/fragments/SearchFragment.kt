@@ -56,16 +56,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         searchButton.setOnClickListener {
 
             lifecycleScope.launch {
-                try {
-                    val countryInfo = getInfo().first()
-                    setCountryInfo(countryInfo)
-                    showInfo()
 
-                } catch (e: HttpException) {
-                    showErrorMsg(e)
-                } catch (e: IllegalArgumentException) {
-                    showErrorMsg(e)
-                }
             }
         }
     }
