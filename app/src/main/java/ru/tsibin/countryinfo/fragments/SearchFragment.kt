@@ -11,6 +11,7 @@ import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.activity.addCallback
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.example.countriesinfo.R
 import com.example.countriesinfo.databinding.FragmentSearchBinding
@@ -28,8 +29,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private val countryName get() = requireView().findViewById<TextView>(R.id.countryName)
     private val capital get() = requireView().findViewById<TextView>(R.id.capital)
     private val region get() = requireView().findViewById<TextView>(R.id.region)
-    private val scrollView get() = requireView().findViewById<ScrollView>(R.id.scrollView)
-    private val linearLayout get() = requireView().findViewById<LinearLayout>(R.id.linearLayout)
     private val population get() = requireView().findViewById<TextView>(R.id.population)
     private val searchButton get() = requireView().findViewById<TextView>(R.id.searchButton)
     private val tvErrorMsg get() = requireView().findViewById<TextView>(R.id.errorMsg)
@@ -55,25 +54,23 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     @OptIn(DelicateCoroutinesApi::class)
     private fun setSearchListener() {
         searchButton.setOnClickListener {
-            try {
 
-                val countryInfo = GlobalScope.async {
-                    getInfo().first()
+            lifecycleScope.launch {
+                try {
+                    val countryInfo = getInfo().first()
+                    setCountryInfo(countryInfo)
+                    showInfo()
+
+                } catch (e: HttpException) {
+                    showErrorMsg(e)
+                } catch (e: IllegalArgumentException) {
+                    showErrorMsg(e)
                 }
-                runBlocking {
-                    setCountryInfo(countryInfo.await())
-                }
-                showInfo()
-            } catch (e: HttpException) {
-                showErrorMsg(e)
-            }
-            catch (e: IllegalArgumentException){
-                showErrorMsg(e)
             }
         }
     }
 
-    private fun showErrorMsg(e: Exception){
+    private fun showErrorMsg(e: Exception) {
         val errorMsg = getString(R.string.error) + ": " + e.message
         tvErrorMsg.visibility = View.VISIBLE
         tvErrorMsg.text = errorMsg
