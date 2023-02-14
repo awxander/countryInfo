@@ -8,7 +8,7 @@ sealed interface SearchState{
 
     object Loading: SearchState
 
-    data class Content(val countries: List<CountryInfo>)
+    data class Content(val countries: List<CountryInfo>) : SearchState
 
-    data class Error(val text: String)
+    data class Error(val text: String) : SearchState
 }

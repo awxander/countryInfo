@@ -13,5 +13,6 @@
     <string name="currency">currency</string>
     <string name="by_language">by language</string>
     <string name="error">error</string>
+    <string name="no_search_arguments">no search arguments</string>
 
 </resources>

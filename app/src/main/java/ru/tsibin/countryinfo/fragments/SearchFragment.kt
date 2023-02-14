@@ -1,25 +1,19 @@
 package ru.tsibin.countryinfo.fragments
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.ScrollView
 import android.widget.TextView
-import androidx.activity.addCallback
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.fragment.navArgs
 import com.example.countriesinfo.R
-import com.example.countriesinfo.databinding.FragmentSearchBinding
 import kotlinx.coroutines.*
-import retrofit2.HttpException
 import ru.tsibin.countryinfo.data.CountryInfo
 import ru.tsibin.countryinfo.data.CountryInfoRepository
-import ru.tsibin.countryinfo.mainActivity
+import ru.tsibin.countryinfo.presentation.SearchViewModel
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
 
@@ -33,7 +27,14 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private val searchButton get() = requireView().findViewById<TextView>(R.id.searchButton)
     private val tvErrorMsg get() = requireView().findViewById<TextView>(R.id.errorMsg)
 
-    private val infoRepository = CountryInfoRepository()
+    private val viewModel: SearchViewModel by viewModels{
+        viewModelFactory {
+            initializer {
+                SearchViewModel(CountryInfoRepository())
+            }
+        }
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -55,14 +56,11 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private fun setSearchListener() {
         searchButton.setOnClickListener {
 
-            lifecycleScope.launch {
-
-            }
         }
     }
 
-    private fun showErrorMsg(e: Exception) {
-        val errorMsg = getString(R.string.error) + ": " + e.message
+    private fun showErrorMsg(msg: String) {
+        val errorMsg = getString(R.string.error) + ": " + msg
         tvErrorMsg.visibility = View.VISIBLE
         tvErrorMsg.text = errorMsg
     }
@@ -74,15 +72,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         population.text = "population: " + countryInfo.population
     }
 
-    private suspend fun getInfo(): List<CountryInfo> {
-        val arg = handleInput()
-        return when (args.searchType) {
-            SearchType.BY_NAME -> infoRepository.getByName(arg)
-            SearchType.BY_CURRENCY -> infoRepository.getByCurrencyName(arg)
-            SearchType.BY_CAPITAL -> infoRepository.getByCapital(arg)
-            SearchType.BY_LANGUAGE -> infoRepository.getByCapital(arg)
-        }
-    }
+
 
     private fun handleInput(): String {
         val res = editSearchInfo.text.toString()
