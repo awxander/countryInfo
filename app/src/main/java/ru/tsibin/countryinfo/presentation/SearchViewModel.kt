@@ -29,6 +29,7 @@ class SearchViewModel(private val repository: CountryInfoRepository) : ViewModel
         }
     }
 
+
     fun loadAllData() {
         viewModelScope.launch {
             _state.value = SearchState.Loading

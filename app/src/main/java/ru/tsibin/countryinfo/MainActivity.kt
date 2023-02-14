@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.countriesinfo.R
+import ru.tsibin.countryinfo.data.CountryInfoRepository
 
 
 class MainActivity : AppCompatActivity() {
 
+    val countryInfoRepository = CountryInfoRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

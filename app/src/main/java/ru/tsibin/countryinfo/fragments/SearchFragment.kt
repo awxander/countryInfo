@@ -13,6 +13,8 @@ import com.example.countriesinfo.R
 import kotlinx.coroutines.*
 import ru.tsibin.countryinfo.data.CountryInfo
 import ru.tsibin.countryinfo.data.CountryInfoRepository
+import ru.tsibin.countryinfo.mainActivity
+import ru.tsibin.countryinfo.presentation.SearchState
 import ru.tsibin.countryinfo.presentation.SearchViewModel
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
@@ -30,7 +32,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private val viewModel: SearchViewModel by viewModels{
         viewModelFactory {
             initializer {
-                SearchViewModel(CountryInfoRepository())
+                SearchViewModel(mainActivity.countryInfoRepository)
             }
         }
     }
@@ -40,6 +42,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         super.onViewCreated(view, savedInstanceState)
         setSearchListener()
         setEditTextHint()
+        viewModel.state.observe(viewLifecycleOwner, ::handleState)
     }
 
     private fun setEditTextHint() {
@@ -51,11 +54,25 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         }
     }
 
+    private fun handleState(state: SearchState){
+        when(state){
+            SearchState.Initial -> Unit
+            SearchState.Loading -> Unit
+            is SearchState.Content -> setCountryInfo(state.countries.first())
+            is SearchState.Error -> showErrorMsg(state.text)
+        }
+    }
 
-    @OptIn(DelicateCoroutinesApi::class)
+
     private fun setSearchListener() {
         searchButton.setOnClickListener {
 
+            try {
+                val arg = handleInput()
+                viewModel.loadData(args.searchType, arg)
+            } catch (e: IllegalArgumentException) {
+                showErrorMsg(e.message.orEmpty())
+            }
         }
     }
 
