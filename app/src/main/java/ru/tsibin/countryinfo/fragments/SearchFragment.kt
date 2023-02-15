@@ -51,7 +51,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
 
 
-    @OptIn(DelicateCoroutinesApi::class)
     private fun setSearchListener() {
         searchButton.setOnClickListener {
 
@@ -77,8 +76,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
 
     private fun setCountryInfo(countryInfo: CountryInfo) {
-        countryName.text = "country: " + countryInfo.name
-        capital.text = "capital: " + countryInfo.capital
+        countryName.text = "country: " + countryInfo.name?.name
+        capital.text = "capital: " + countryInfo.capital.first()
         region.text = "region: " + countryInfo.region
         population.text = "population: " + countryInfo.population
     }

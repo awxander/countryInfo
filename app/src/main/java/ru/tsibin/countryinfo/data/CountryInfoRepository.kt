@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit
 class CountryInfoRepository {
 
     companion object{
-        const val BASE_URL = "https://restcountries.com/v2/"
+        const val BASE_URL = "https://restcountries.com/v3.1/"
         const val READ_TIMEOUT_SECONDS = 5L
         const val CONNECT_TIMEOUT_SECONDS = 5L
         const val WRITE_TIMEOUT_SECONDS = 5L
