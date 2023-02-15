@@ -17,6 +17,7 @@ class CountryInfoRepository {
 
 
     private val gson = GsonBuilder()
+        .registerTypeAdapter(Currency::class.java, GsonCurrencyConverter)
         .create()
 
     private val countryInfoApi by lazy{
