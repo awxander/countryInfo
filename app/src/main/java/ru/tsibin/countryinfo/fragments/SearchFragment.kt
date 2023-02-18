@@ -58,7 +58,10 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         when(state){
             SearchState.Initial -> Unit
             SearchState.Loading -> Unit
-            is SearchState.Content -> setCountryInfo(state.countries.first())
+            is SearchState.Content -> {
+                setCountryInfo(state.countries.first())
+                showInfo()
+            }
             is SearchState.Error -> showErrorMsg(state.text)
         }
     }
