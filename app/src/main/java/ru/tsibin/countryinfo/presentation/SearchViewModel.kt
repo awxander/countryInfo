@@ -24,7 +24,7 @@ class SearchViewModel(private val repository: CountryInfoRepository) : ViewModel
             _state.value = SearchState.Loading
             try {
                 val countriesInfo = getInfo(searchType, arg)
-                Log.i(TAG, "got info")
+                Log.i(javaClass.simpleName, "got info")
                 _state.value = SearchState.Content(countriesInfo)
             } catch (e: HttpException) {
                 Log.e(TAG, e.message())
@@ -39,7 +39,7 @@ class SearchViewModel(private val repository: CountryInfoRepository) : ViewModel
             _state.value = SearchState.Loading
             try {
                 val countriesInfo = getAllInfo()
-                Log.i(TAG, "got info")
+                Log.i(javaClass.simpleName, "got info")
                 _state.value = SearchState.Content(countriesInfo)
             } catch (e: HttpException) {
                 Log.e(TAG, e.message())
