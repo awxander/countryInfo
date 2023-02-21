@@ -8,25 +8,17 @@ import java.lang.reflect.Type
 const val NAME = "name"
 const val SYMBOL = "symbol"
 
-object GsonCurrencyConverter : JsonDeserializer<List<Currency>> {
+object GsonCurrencyConverter : JsonDeserializer<Currency> {
 
 
     override fun deserialize(
         json: JsonElement,
         typeOfT: Type,
         context: JsonDeserializationContext?
-    ): List<Currency> {
-        val keySet = json.asJsonObject.keySet()
-        val currencies = mutableListOf<Currency>()
-
-        for (key in keySet) {
-            val innerJson = json.asJsonObject.get(key).asJsonObject
-            val name = innerJson.get(NAME).asString
-            val symbol = innerJson.get(SYMBOL).asString
-            currencies.add(Currency(name, symbol))
-        }
-
-        return currencies
+    ): Currency {
+            val name = json.asJsonObject.get(NAME).asString
+            val symbol = json.asJsonObject.get(SYMBOL).asString
+        return Currency(name, symbol)
     }
 
 }

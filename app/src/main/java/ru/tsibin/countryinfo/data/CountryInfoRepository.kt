@@ -1,6 +1,7 @@
 package ru.tsibin.countryinfo.data
 
 import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -19,6 +20,10 @@ class CountryInfoRepository {
     private val gson = GsonBuilder()
         .registerTypeAdapter(Currency::class.java, GsonCurrencyConverter)
         .create()
+
+    private val type = object : TypeToken<List<Currency>>() {}.type
+//че это бля
+    val currencies = gson.fromJson<List<Currency>>(jsonString, type)
 
     private val countryInfoApi by lazy{
         retrofit.create(CountryInfoApi::class.java)
