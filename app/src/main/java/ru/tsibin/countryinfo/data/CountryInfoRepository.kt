@@ -1,6 +1,7 @@
 package ru.tsibin.countryinfo.data
 
 import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -9,7 +10,7 @@ import java.util.concurrent.TimeUnit
 class CountryInfoRepository {
 
     companion object{
-        const val BASE_URL = "https://restcountries.com/v2/"
+        const val BASE_URL = "https://restcountries.com/v3.1/"
         const val READ_TIMEOUT_SECONDS = 5L
         const val CONNECT_TIMEOUT_SECONDS = 5L
         const val WRITE_TIMEOUT_SECONDS = 5L
@@ -17,7 +18,9 @@ class CountryInfoRepository {
 
 
     private val gson = GsonBuilder()
+        .registerTypeAdapter(CurrenciesResponse::class.java, GsonCurrenciesConverter)
         .create()
+
 
     private val countryInfoApi by lazy{
         retrofit.create(CountryInfoApi::class.java)
