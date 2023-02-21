@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 data class CountryInfo(
     @SerializedName("flags") var countryFlag: CountryFlag?,
     @SerializedName("name") var name: CountryName?,
-    @SerializedName("currencies") var currencies: List<Currency>,
+    @SerializedName("currencies") var currencies: CurrenciesResponse,
     @SerializedName("capital") var capital: ArrayList<String>,
     @SerializedName("altSpellings") var altSpellings: ArrayList<String>,
     @SerializedName("region") var region: String? = null,

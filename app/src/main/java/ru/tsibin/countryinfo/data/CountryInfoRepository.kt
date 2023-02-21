@@ -18,12 +18,9 @@ class CountryInfoRepository {
 
 
     private val gson = GsonBuilder()
-        .registerTypeAdapter(Currency::class.java, GsonCurrencyConverter)
+        .registerTypeAdapter(CurrenciesResponse::class.java, GsonCurrenciesConverter)
         .create()
 
-    private val type = object : TypeToken<List<Currency>>() {}.type
-//че это бля
-    val currencies = gson.fromJson<List<Currency>>(jsonString, type)
 
     private val countryInfoApi by lazy{
         retrofit.create(CountryInfoApi::class.java)
