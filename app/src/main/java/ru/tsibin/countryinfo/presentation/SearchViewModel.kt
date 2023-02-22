@@ -18,7 +18,7 @@ class SearchViewModel(private val repository: CountryInfoRepository) : ViewModel
 
     val state: LiveData<SearchState> = _state
 
-    
+
     fun loadData(searchType: SearchType, arg: String) {
         viewModelScope.launch {
             _state.value = SearchState.Loading

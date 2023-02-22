@@ -19,6 +19,7 @@ class CountryInfoRepository {
 
     private val gson = GsonBuilder()
         .registerTypeAdapter(CurrenciesResponse::class.java, GsonCurrenciesConverter)
+        .registerTypeAdapter(Languages::class.java, GsonLanguagesConverter)
         .create()
 
 

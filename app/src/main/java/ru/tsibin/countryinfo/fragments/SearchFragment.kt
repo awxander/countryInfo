@@ -69,9 +69,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private fun setSearchListener() {
         searchButton.setOnClickListener {
-
             try {
                 val arg = handleInput()
+                //so data loading will update state, in which case it will invoke handleState method
                 viewModel.loadData(args.searchType, arg)
             } catch (e: IllegalArgumentException) {
                 showErrorMsg(e.message.orEmpty())
