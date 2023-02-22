@@ -10,9 +10,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.fragment.navArgs
 import com.example.countriesinfo.R
-import kotlinx.coroutines.*
 import ru.tsibin.countryinfo.data.CountryInfo
-import ru.tsibin.countryinfo.data.CountryInfoRepository
 import ru.tsibin.countryinfo.mainActivity
 import ru.tsibin.countryinfo.presentation.SearchState
 import ru.tsibin.countryinfo.presentation.SearchViewModel
