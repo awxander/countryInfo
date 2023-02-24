@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.countriesinfo.R
 import ru.tsibin.countryinfo.data.CountryInfo
@@ -26,6 +27,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private val population get() = requireView().findViewById<TextView>(R.id.population)
     private val searchButton get() = requireView().findViewById<TextView>(R.id.searchButton)
     private val tvErrorMsg get() = requireView().findViewById<TextView>(R.id.errorMsg)
+    private val navController get() = findNavController()
 
     private val viewModel: SearchViewModel by viewModels{
         viewModelFactory {
@@ -57,12 +59,20 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             SearchState.Initial -> Unit
             SearchState.Loading -> Unit
             is SearchState.Content -> {
-                setCountryInfo(state.countries.first())
-                showInfo()
+//                setCountryInfo(state.countries.first())
+//                showInfo()
+                navigateToListFragment(state.countries)
             }
             is SearchState.Error -> showErrorMsg(state.text)
         }
     }
+
+    private fun navigateToListFragment(countries: List<CountryInfo>){
+        val action = SearchFragmentDirections
+            .actionSearchFragmentToCountriesListFragment(countries.toTypedArray())
+        navController.navigate(action)
+    }
+
 
 
     private fun setSearchListener() {
