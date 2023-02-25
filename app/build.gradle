@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'androidx.navigation.safeargs.kotlin'
+    id("kotlin-parcelize")
 }
 
 android {
@@ -65,7 +66,7 @@ dependencies {
     //retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:retrofit-mock:2.9.0'//for tests
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'//converter for jsons
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'//converter for json
 
     //coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
