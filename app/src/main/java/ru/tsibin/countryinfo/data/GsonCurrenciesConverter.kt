@@ -22,7 +22,7 @@ object GsonCurrenciesConverter : JsonDeserializer<CurrenciesResponse> {
         for (key in keySet) {
             val innerJson = json.asJsonObject.get(key).asJsonObject
             val name = innerJson.get(NAME).asString
-            val symbol = innerJson.get(SYMBOL).asString
+            val symbol = innerJson.get(SYMBOL)?.asString
             currencies.add(Currency(name, symbol))
         }
 

@@ -1,6 +1,7 @@
 package ru.tsibin.countryinfo.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
@@ -11,6 +12,7 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.countriesinfo.R
+import ru.tsibin.countryinfo.TAG
 import ru.tsibin.countryinfo.data.CountryInfo
 import ru.tsibin.countryinfo.mainActivity
 import ru.tsibin.countryinfo.presentation.SearchState
@@ -59,8 +61,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             SearchState.Initial -> Unit
             SearchState.Loading -> Unit
             is SearchState.Content -> {
-//                setCountryInfo(state.countries.first())
-//                showInfo()
                 navigateToListFragment(state.countries)
             }
             is SearchState.Error -> showErrorMsg(state.text)
@@ -82,6 +82,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 //so data loading will update state, in which case it will invoke handleState method
                 viewModel.loadData(args.searchType, arg)
             } catch (e: IllegalArgumentException) {
+                Log.w(TAG, e.message.orEmpty())
                 showErrorMsg(e.message.orEmpty())
             }
         }
@@ -94,7 +95,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
 
     private fun setCountryInfo(countryInfo: CountryInfo) {
-        countryName.text = "country: " + countryInfo.name?.name
+        countryName.text = "country: " + countryInfo.name?.commonName
         capital.text = "capital: " + countryInfo.capital.first()
         region.text = "region: " + countryInfo.region
         population.text = "population: " + countryInfo.population

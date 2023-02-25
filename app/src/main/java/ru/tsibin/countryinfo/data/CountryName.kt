@@ -1,8 +1,11 @@
 package ru.tsibin.countryinfo.data
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class CountryName(
     @SerializedName("common")
-    val name : String
-    )
+    val commonName : String
+    ) : Parcelable

@@ -1,7 +1,6 @@
 package ru.tsibin.countryinfo.data
 
 import com.google.gson.GsonBuilder
-import com.google.gson.reflect.TypeToken
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -19,7 +18,7 @@ class CountryInfoRepository {
 
     private val gson = GsonBuilder()
         .registerTypeAdapter(CurrenciesResponse::class.java, GsonCurrenciesConverter)
-        .registerTypeAdapter(Languages::class.java, GsonLanguagesConverter)
+        .registerTypeAdapter(LanguagesResponse::class.java, GsonLanguagesConverter)
         .create()
 
 
