@@ -30,6 +30,7 @@ class SearchViewModel(private val repository: CountryInfoRepository) : ViewModel
                 Log.e(TAG, e.message())
                 _state.value = SearchState.Error(e.message())
             }
+            _state.value = SearchState.Initial
         }
     }
 
