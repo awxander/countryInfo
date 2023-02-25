@@ -1,3 +1,7 @@
 package ru.tsibin.countryinfo.data
 
-data class CurrenciesResponse(val currencies : List<Currency>)
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+data class CurrenciesResponse(val currencies : List<Currency>) : Parcelable

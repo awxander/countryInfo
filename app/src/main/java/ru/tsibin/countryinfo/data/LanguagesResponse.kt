@@ -4,4 +4,4 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Languages(val languages: List<String>) : Parcelable
+data class LanguagesResponse(val languages: List<String>) : Parcelable
