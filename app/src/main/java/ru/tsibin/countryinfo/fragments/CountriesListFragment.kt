@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +21,7 @@ class CountriesListFragment : Fragment(R.layout.countries_list_fragment) {
     private val adapter = CountryAdapter()
     private val countriesRecyclerView
         get() = requireView().findViewById<RecyclerView>(R.id.countriesRecyclerView)
+    private val navController get() = findNavController()
 
 
 
@@ -29,10 +31,14 @@ class CountriesListFragment : Fragment(R.layout.countries_list_fragment) {
         setCountriesList()
     }
 
+    private fun navigateToFullInfoFragment(countryInfo: CountryInfo){
+        val action = CountriesListFragmentDirections
+            .actionCountriesListFragmentToFullInfoFragment(countryInfo)
+        navController.navigate(action)
+    }
+
     private fun setCountriesList(){
-        for(countryInfo in args.countriesInfo){
-            adapter.addCountry(countryInfo)
-        }
+        adapter.addCountryList(args.countriesInfo.toCollection(ArrayList()))
     }
 
 

@@ -55,6 +55,24 @@
         <action
             android:id="@+id/action_countriesListFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_countriesListFragment_to_fullInfoFragment"
+            app:destination="@id/fullInfoFragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/fullInfoFragment"
+        android:name="ru.tsibin.countryinfo.fragments.FullInfoFragment"
+        android:label="FullInfoFragment"
+        >
+        <argument
+            android:name="countryInfo"
+            android:defaultValue="BY_NAME"
+            app:argType="ru.tsibin.countryinfo.data.CountryInfo" />
+        <action
+            android:id="@+id/action_fullInfoFragment_to_countriesListFragment"
+            app:destination="@id/countriesListFragment" />
     </fragment>
 
 </navigation>
