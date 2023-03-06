@@ -11,6 +11,7 @@ import ru.tsibin.countryinfo.TAG
 import ru.tsibin.countryinfo.data.CountryInfo
 import ru.tsibin.countryinfo.data.CountryInfoRepository
 import ru.tsibin.countryinfo.fragments.SearchType
+import java.net.SocketTimeoutException
 
 class SearchViewModel(private val repository: CountryInfoRepository) : ViewModel() {
 
@@ -29,6 +30,9 @@ class SearchViewModel(private val repository: CountryInfoRepository) : ViewModel
             } catch (e: HttpException) {
                 Log.e(TAG, e.message())
                 _state.value = SearchState.Error(e.message())
+            } catch (e: SocketTimeoutException) {
+                Log.e(TAG, e.message.orEmpty())
+                _state.value = SearchState.Error(e.message.orEmpty())
             }
             _state.value = SearchState.Initial
         }
@@ -44,6 +48,9 @@ class SearchViewModel(private val repository: CountryInfoRepository) : ViewModel
                 _state.value = SearchState.Content(countriesInfo)
             } catch (e: HttpException) {
                 Log.e(TAG, e.message())
+                _state.value = SearchState.Error(e.message.orEmpty())
+            } catch (e: SocketTimeoutException) {
+                Log.e(TAG, e.message.orEmpty())
                 _state.value = SearchState.Error(e.message.orEmpty())
             }
         }
