@@ -68,7 +68,6 @@
         >
         <argument
             android:name="countryInfo"
-            android:defaultValue="BY_NAME"
             app:argType="ru.tsibin.countryinfo.data.CountryInfo" />
         <action
             android:id="@+id/action_fullInfoFragment_to_countriesListFragment"
